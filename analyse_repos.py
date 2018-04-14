@@ -15,7 +15,8 @@ frameworks = (
     "mxnet",
     "theano",
     "keras",
-    "matlab"
+    "matlab",
+    "torch_c"
 )
 
 
@@ -47,6 +48,13 @@ def analyse_one_repo(folder):
 
             if filename.endswith('.m'):
                 word_count["matlab"] = True
+                if "matlab" in word_bag:
+                    del (word_bag["matlab"])
+
+            if filename.endswith('.lua'):
+                word_count["torch_c"] = True
+                if "torch_c" in word_bag:
+                    del (word_bag["torch_c"])
 
     return word_count
 
