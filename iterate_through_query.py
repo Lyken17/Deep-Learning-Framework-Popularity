@@ -46,23 +46,30 @@ class iter_through_query():
         results = []
         for repos in soup.select('.v-align-middle'):
             res = self.extract_single_repo(repos)
+            if res is None:
+                continue
             results.append(res)
             print(res)
         return results
 
     def extract_single_repo(self, repo_info):
-        s = repo_info.attrs['data-hydro-click']
-        # print(type(s))
-        # print(s)
+        try:
+            s = repo_info.attrs['data-hydro-click']
+            # print(type(s))
+            # print(s)
 
-        res = json.loads(s)['payload']['result']['url']
-        # print(res)
+            res = json.loads(s)['payload']['result']['url']
+            # print(res)
+        except KeyError:
+            return None
         return res
 
 
 if __name__ == "__main__":
+    import argparse
+    
     d = iter_through_query()
-    # maxd = d.get_maximum_pages()
-    # print(maxd)
+    maxd = d.get_maximum_pages()
+    print(maxd)
     res = d.filter_all_repos()
 
