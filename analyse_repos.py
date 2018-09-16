@@ -63,6 +63,8 @@ proj = "3D-ResNets-PyTorch"
 for (dirpath, dirnames, filenames) in os.walk(root):
     break
 
+import json 
+
 word_count = {_: 0 for _ in frameworks}
 for idx, proj in enumerate(dirnames):
     folder = osp.join(root, proj)
@@ -73,5 +75,6 @@ for idx, proj in enumerate(dirnames):
     for key, value in w.items():
         if value == True:
             word_count[key] += 1
-
+    with open("result.json", "r+") as fp:
+        json.dumps(word_count, indent=2)
     print(word_count)
