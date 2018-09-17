@@ -24,6 +24,9 @@ def find_keywords(path, word_bag):
 
     res = []
     for l in lines:
+        if not "import" in l:
+            continue
+
         for w in word_bag.keys():
             if w in l:
                 res.append(w)
